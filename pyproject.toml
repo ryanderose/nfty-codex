@@ -1,0 +1,52 @@
+[project]
+name = "codex-notifier"
+version = "0.1.0"
+description = "FastMCP scaffolding for Codex to ntfy notifications"
+readme = "README.md"
+requires-python = ">=3.11"
+authors = [{ name = "Codex Notifications Team" }]
+dependencies = [
+    "httpx>=0.27.0",
+    "mcp>=0.1.0",
+    "pydantic>=2.7.0",
+    "pydantic-settings>=2.2.1",
+    "python-dotenv>=1.0.1",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.3.0",
+    "pytest-asyncio>=0.23.0",
+    "ruff>=0.6.8",
+]
+
+[build-system]
+requires = ["hatchling>=1.24.0"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/notifier_server"]
+
+[tool.hatch.build.targets.sdist]
+include = ["src/notifier_server", "README.md", "pyproject.toml"]
+
+[tool.uv]
+default-groups = ["dev"]
+
+[tool.ruff]
+target-version = "py311"
+line-length = 100
+src = ["src", "scripts", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "W"]
+ignore = []
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+line-ending = "lf"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
